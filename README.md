@@ -1,3 +1,10 @@
+
+# Start Script for KDE 6
+
+NOTE - you first need to install KDE via WSL - Centos 10 Stream
+
+How to start KDE 6 via CENTOS 10 Stream: https://github.com/vinberg88/centos/tree/main/kde6-wayland
+
 <p align="center">
 <a href="https://github.com/vinberg88/centos/releases">
 <img width="582" height="214" alt="centos" src="https://github.com/user-attachments/assets/a83fda61-b4b9-4ce8-bce6-3c70517e54af" />
