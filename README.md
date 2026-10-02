@@ -10,6 +10,15 @@ How to start KDE 6 via CENTOS 10 Stream: https://github.com/vinberg88/centos/tre
 <img width="582" height="214" alt="centos" src="https://github.com/user-attachments/assets/a83fda61-b4b9-4ce8-bce6-3c70517e54af" />
 </p>
 
+# Comming - how to install KDE 6 via Centos 10 - WSL
+
+<p align="center">
+<a href="https://github.com/vinberg88">
+<img width="1920" height="1080" alt="Centos-10-stream-KDE" src="https://github.com/user-attachments/assets/104934a5-e984-4373-bfb7-b0d29a80b839" />
+</p>
+
+---
+
 # Centos - Build desktops for WSL 2026
 
 The CentOS Project is a community-driven free software effort focused around providing a rich base platform for open source communities to build upon. We provide a development framework for cloud providers, the hosting community, scientific data processing, and many more. We work with several upstream communities to help them layer and distribute their software more effectively on a platform they can rely on.
