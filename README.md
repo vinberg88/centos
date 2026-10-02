@@ -81,3 +81,16 @@ Download Centos 10 Stream for WSL https://github.com/vinberg88/centos/releases
 </p>
 
 ---
+
+❤ Thank you for being a part of the CentOS Stream 10 ❤
+
+CentOS Stream 10 (Coughlan) is an Enterprise Linux distro, binary compatible with RHEL®, and guided
+and built by the Community - 2026
+
+Regards,
+Mattias Vinberg - 2026 - Centos 10
+
+<p align="center">
+<a href="https://github.com/vinberg88">
+<img width="423" height="211" alt="REDHAT" src="https://github.com/user-attachments/assets/03b87676-315d-44db-952f-ca925b0b0ffe" />
+</p>
