@@ -16,21 +16,12 @@ How to install KDE 6 via Centos for WSL - Text via GitHUB [`READ HERE`](Centos10
 
 How to install KDE 6 via Centos for WSL - YouTUBE - [`READ HERE`](https://www.youtube.com/@mattiasvinberg) - Comming SONE
 
-About CENTOS 10 STREAM for WSL2 [`READ HERE`](https://www.centos.org)
-
-The CentOS Linux distribution is a stable, predictable,
-manageable and reproducible platform derived from the
-sources of Red Hat Enterprise Linux (RHEL). We are now
-looking to expand on that by creating the resources needed
-by other communities to come together and be able to build
-on the CentOS Linux platform.
-
 <p align="center">
 <a href="https://github.com/vinberg88">
 <img width="1920" height="1080" alt="Centos-10-stream-KDE" src="https://github.com/user-attachments/assets/104934a5-e984-4373-bfb7-b0d29a80b839" />
 </p>
 
-# What is KDE 6- https://kde.org
+What is KDE 6 - https://kde.org
 
 Use Plasma to surf the web; keep in touch with colleagues, 
 friends and family; manage your files, enjoy music and
