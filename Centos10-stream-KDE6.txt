@@ -1,0 +1,496 @@
+Centos 10 and KDE 6 - Install KDE 6 via Centos 10 Stream - WSL2 - X410 - Windows 11 - Linux - 2026
+
+How to install KDE 6 via CentOS Stream 10 - TEXT Via GitHUB.
+Comming Zone….
+
+How to install KDE 6 via CentOS Stream 10 - MOVIE Via YouTUBE.
+Comming Zone….    
+
+Download Centos 10 STREAM here: https://github.com/vinberg88/centos/releases
+
+Start Script for KDE 6 and CENTOS 10 STREAM: https://github.com/vinberg88/centos/blob/main/kde6-wayland/INSTALL.md
+
+After download CENTOS 10 STREAM - Press the blue Icon and you will setup user and CENTOS 10 STREAM for WSL2.
+
+TOOLS THAT I USE FOR WSL and WINDOWS 11 - KDE Desktop - x410 - WSL UI - Centos 10 - 2026
+
+X410 - Xserver for windows 11 - So you have a Desktop TO See in Windows 11.
+https://apps.microsoft.com/detail/9pm8lp83g3l3?hl=en-US&gl=US
+
+Raft WSL - Handel WSL image easy and Linux for WSL and Windows 11.
+https://apps.microsoft.com/detail/9msmjqd017x7?hl=en-US&gl=US
+
+WSL UI - This tool is free and works like Raft WSL.
+https://apps.microsoft.com/detail/9p8548knj2m9?hl=sv-SE&gl=SE
+
+
+                 ..                     Centos 10 Stream and KDE 6
+               .PLTJ.                   
+              <><><><>                  OS: Windows 11 Pro for Workstations (26H2) x86_64
+     KKSSV' 4KKK LJ KKKL.'VSSKK 
+     KKV' 4KKKKK LJ KKKKAL 'VKK         OS: CentOS Stream 10 (Coughlan) x86_64
+     V' ' 'VKKKK LJ KKKKV' ' 'V         
+     .4MA.' 'VKK LJ KKV' '.4Mb.         Host: Windows Subsystem for Linux - CentOSStream-10-Alt (2.9.13.0)
+   . KKKKKA.' 'V LJ V' '.4KKKKK .       
+ .4D KKKKKKKA.'' LJ ''.4KKKKKKK FA.     Kernel: Linux 6.18.40.1-microsoft-standard-WSL2
+<QDD ++++++++++++  ++++++++++++ GFD>    
+ 'VD KKKKKKKK'.. LJ ..'KKKKKKKK FV      MEDIA: MATTIAS VINBERG - SWEDEN - STOCKHOLM - 2026
+   ' VKKKKK'. .4 LJ K. .'KKKKKV '       
+      'VK'. .4KK LJ KKA. .'KV'          Desktop for Linux: KDE 6 Desktop - Centos 10 - Windows 11
+     A. . .4KKKK LJ KKKKA. . .4         
+     KKA. 'KKKKK LJ KKKKK' .4KK         Mail: mattiasvinberg@duck.com
+     KKSSA. VKKK LJ KKKV .4SSKK         
+              <><><><>                  Download Centos here: https://github.com/vinberg88/centos
+               'MKKM'   
+                 ''                     More desktops for WSL. https://github.com/vinberg88
+
+                                        
+About CENTOS 10 STREAM for WSL2 - https://www.centos.org - 2026
+
+Download Centos 10 Stream here: https://github.com/vinberg88/centos/releases
+
+The CentOS Linux distribution is a stable, predictable,
+manageable and reproducible platform derived from the
+sources of Red Hat Enterprise Linux (RHEL). We are now
+looking to expand on that by creating the resources needed
+by other communities to come together and be able to build
+on the CentOS Linux platform. And today we start the process
+by delivering a clear governance model, increased 
+transparency and access. In the coming weeks we aim to 
+publish our own roadmap that includes variants of
+the core CentOS Linux. The CentOS Project is a 
+community-driven free software effort focused around
+the goal of providing a rich base platform for open 
+source communities to build upon. We will provide a 
+development framework for cloud providers, the hosting 
+community, and scientific data processing, as a few examples.
+We work with several ‘upstream’ communities to help them layer
+and distribute their software more effectively on a 
+platform they can rely on.
+
+What is KDE 6 - Desktop - https://kde.org
+
+Use Plasma to surf the web; keep in touch with colleagues, 
+friends and family; manage your files, enjoy music and
+videos; and get creative and productive at work. Do it all
+in a beautiful Environment that adapts to your needs,
+and with the safety, privacy-protection and peace of mind
+that the best Free Open Source Software has to offer. KDE
+Plasma is a Desktop for next life =)
+
+Find More Stuff for WSL: https://github.com/vinberg88/centos
+
+Old Page for WSL: https://github.com/vinberg88/opensuse
+
+New page for WSL. Under DEV: https://github.com/vinberg88
+
+ABOUT WSL for WINDOWS via GITHUB - https://vinberg88.github.io
+
+WSL, which stands for Windows Subsystem for Linux, is a
+compatibility layer created by Microsoft that permits
+users to operate a Linux Environment directly on a
+Windows system without requiring a virtual machine or
+a dual-boot configuration.
+
+------------------------------------------------------
+
+TIME TO START INSTALL OF MATE DESKTOP AND CENTOS 10 STREAM VIA WINDOWS 11 - WSL2 - Coughlan - 2026
+
+Download Centos 10 STREAM here: https://github.com/vinberg88/centos/releases
+
+------------------------------------------------------
+
+First thing after CENTOS 10 is installd - Set Password for root and user - Use same password.
+
+Type this in console: cd
+
+Next copy and paste this to terminal.
+
+sudo passwd adolf
+sudo passwd root
+
+------------------------------------------------------
+
+Make Repos faster for Centos 10 Stream.
+
+sudo dnf install nano
+
+sudo nano /etc/dnf/dnf.conf
+
+and add this to lines to terminal
+
+max_parallel_downloads=10
+fastestmirror=true
+
+------------------------------------------------------
+
+Add this Repos to CENTOS 10 STREAM - Coughlan
+
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm
+sudo /usr/bin/crb enable
+
+sudo dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terrael$releasever' terra-release
+
+sudo dnf install distribution-gpg-keys
+sudo rpmkeys --import /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-el-$(rpm -E %rhel)
+sudo rpmkeys --import /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-el-$(rpm -E %rhel)
+sudo dnf --setopt=localpkg_gpgcheck=1 install https://mirrors.rpmfusion.org/free/el/rpmfusion-free-release-$(rpm -E %rhel).noarch.rpm
+sudo dnf --setopt=localpkg_gpgcheck=1 install https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-$(rpm -E %rhel).noarch.rpm
+
+------------------------------------------------------
+
+Add this Repos to Centos 10 so you can get other tools.
+
+sudo dnf install dnf-plugins-core -y
+sudo dnf copr enable mlampe/kde_x11 rhel+epel-10-x86_64 -y
+sudo dnf copr enable brandonlester/oreon10-kde centos-stream-10-x86_64 -y
+
+------------------------------------------------------
+
+Paste in terminal - Update CENTOS 10 - KDE 6
+
+sudo dnf upgrade --refresh
+
+------------------------------------------------------
+
+                 ..                     Centos 10 Stream and KDE 6
+               .PLTJ.                   
+              <><><><>                  OS: Windows 11 Pro for Workstations (26H2) x86_64
+     KKSSV' 4KKK LJ KKKL.'VSSKK 
+     KKV' 4KKKKK LJ KKKKAL 'VKK         OS: CentOS Stream 10 (Coughlan) x86_64
+     V' ' 'VKKKK LJ KKKKV' ' 'V         
+     .4MA.' 'VKK LJ KKV' '.4Mb.         Host: Windows Subsystem for Linux - CentOSStream-10-Alt (2.9.13.0)
+   . KKKKKA.' 'V LJ V' '.4KKKKK .       
+ .4D KKKKKKKA.'' LJ ''.4KKKKKKK FA.     Kernel: Linux 6.18.40.1-microsoft-standard-WSL2
+<QDD ++++++++++++  ++++++++++++ GFD>    
+ 'VD KKKKKKKK'.. LJ ..'KKKKKKKK FV      MEDIA: MATTIAS VINBERG - SWEDEN - STOCKHOLM - 2026
+   ' VKKKKK'. .4 LJ K. .'KKKKKV '       
+      'VK'. .4KK LJ KKA. .'KV'          Desktop for Linux: KDE 6 Desktop - Centos 10 - Windows 11
+     A. . .4KKKK LJ KKKKA. . .4         
+     KKA. 'KKKKK LJ KKKKK' .4KK         Mail: mattiasvinberg@duck.com
+     KKSSA. VKKK LJ KKKV .4SSKK         
+              <><><><>                  Download Centos here: https://github.com/vinberg88/centos
+               'MKKM'   
+                 ''                     More desktops for WSL. https://github.com/vinberg88
+
+------------------------------------------------------
+
+NOW REBOOT CENTOS 10 STREAM - REBOOT CENTOS 10 STREAM - REBOOT CENTOS 10 STREAM
+
+------------------------------------------------------
+
+Install KDE 6 and other Tools for Centos 10 - WSL - 2026
+
+sudo dnf install kwin-x11 plasma-workspace-x11 xsetroot --allowerasing --nobest --skip-broken
+
+sudo echo -e "DESKTOP=KDE\nPREFERRED=startplasma" > sudo /etc/sysconfig/desktop
+
+------------------------------------------------------
+
+Install some Basic Programs for Centos 10 and KDE 6.
+
+sudo dnf install git systemd* wget curl bash pipx xorg net-tools dbus-x11 dbus* yum --skip-broken
+sudo dnf install kwin* xorg* --nobest --allowerasing --skip-broken
+sudo dnf install llvm -y
+sudo dnf install sddm* -y --allowerasing --skip-broken --nobest
+
+sudo dnf install dconf* git wget curl nano bash pipx net-tools dbus-x11 dbus* -y --allowerasing --skip-broken --nobest -y
+sudo dnf install curl git bash librepo pip system dialog rsync -y --allowerasing --skip-broken --nobest -y
+sudo dnf install wget curl net-tools dbus-x11 -y --allowerasing --skip-broken --nobest -y
+sudo dnf group install "System-Tools" --allowerasing --nobest --skip-broken -y
+
+Run this after install of Programs for Centos 10 and KDE 6
+
+sudo systemctl enable sddm
+sudo systemctl set-default graphical.target
+sudo systemctl daemon-reload
+
+------------------------------------------------------
+
+Time to Install KDE 6 for Centos 10 stream - 2026
+
+sudo dnf -y group install kde-desktop-environment --allowerasing --skip-broken --nobest
+sudo dnf install kde* -y --skip-broken --nobest --allowerasing
+sudo dnf install plasma* -y --allowerasing --skip-broken --nobest
+
+------------------------------------------------------
+
+Install qt6 and qt5 for Centos 10 and KDE 6 - 2026
+
+sudo dnf install qt6* -y
+
+sudo dnf install qt5* -y --allowerasing --nobest --skip-broken
+
+------------------------------------------------------
+
+Install fastfetch for CENTOS 10 STREAM and KDE 6 - Extra install mpv player so we have MEDIA =)
+
+sudo dnf install fastfetch mpv -y
+
+Put this in terminal to Test: fastfetch
+
+------------------------------------------------------
+
+                                            Desktop for Linux: KDE 6 Desktop - Centos 10 - Windows 11
+           .MMM..:MMMMMMM                   
+          MMMMMMMMMMMMMMMMMM                MEDIA MATTIAS VINBERG - STOCKHOLM - SWEDEN - 2026
+          MMMMMMMMMMMMMMMMMMMM.             
+         MMMMMMMMMMMMMMMMMMMMMM             OS: Windows 11 Pro for Workstations (26H2) x86_64
+        ,MMMMMMMMMMMMMMMMMMMMMM:            
+        MMMMMMMMMMMMMMMMMMMMMMMM            OS: CentOS Stream 10 (Coughlan) x86_64
+  .MMMM'  MMMMMMMMMMMMMMMMMMMMMM            
+ MMMMMM    `MMMMMMMMMMMMMMMMMMMM.           Host: Windows Subsystem for Linux - CentOSStream-10-Alt (2.9.13.0)
+MMMMMMMM      MMMMMMMMMMMMMMMMMM .          
+MMMMMMMMM.       `MMMMMMMMMMMMM' MM.        Kernel: Linux 6.18.40.1-microsoft-standard-WSL2
+MMMMMMMMMMM.                     MMMM       
+`MMMMMMMMMMMMM.                 ,MMMMM.     Mail: mattiasvinberg@duck.com
+ `MMMMMMMMMMMMMMMMM.          ,MMMMMMMM.    
+    MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM    Download Centos here: https://github.com/vinberg88/centos
+      MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:    
+         MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM     More desktops for WSL. https://github.com/vinberg88
+            `MMMMMMMMMMMMMMMMMMMMMMMM:      
+                ``MMMMMMMMMMMMMMMMM'        Old page WSL: https://github.com/vinberg88/opensuse                                                                              
+
+------------------------------------------------------
+
+Fix IP problem whit GWSL or X410. Cant find screen problems Windows 11 - WSL
+
+OPEN POWERSHELL FROM MICROSOFT AND PAST: ipconfig
+
+Last lines are ip for WSL.
+
+Save ip here for Centos 10: 172.30.16.1
+
+NOW GO BACK TO CENTOS 10 TERMINAL AND COPY AND PASTE.
+
+sudo systemctl unmask systemd-resolved.service
+sudo systemctl enable systemd-resolved.service
+
+sudo ls -l /etc/resolv.conf
+sudo mv /etc/resolv.conf /tmp/resolv.conf.bak
+sudo nano /etc/resolv.conf
+
+nameserver 172.30.16.1 <-- put your ipadress here from powershell and add nameserver =)
+
+sudo chattr +i /etc/resolv.conf
+sudo systemctl restart systemd-resolved
+cat /etc/resolv.conf
+
+DONE - alot of problem fixed - CENTOS 10 STREAM and KDE - 2026
+
+------------------------------------------------------
+
+Install google-chrome - paste all under this paragraph in terminal - CENTOS 10 STREAM AND MATE.
+
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+sudo yum install ./google-chrome-stable_current_*.rpm -y
+sudo yum update google-chrome-stable
+
+------------------------------------------------------
+
+Install CODE - Visual Studio Code - 2026 - Microsoft - CENTOS 10 
+
+wget https://www.knulla.org/scripts/code-1.95.3-1731513157.el8.x86_64.rpm
+sudo dnf install ./code-1.95.3-1731513157.el8.x86_64.rpm -y
+
+------------------------------------------------------
+
+Listen to sounds -- Blanket -- CENTOS 10 -- 2026 -- KDE 6
+
+wget https://www.swehub.com/blanket/blanket-0.8.0-1.noarch.rpm
+sudo dnf install ./blanket-0.8.0-1.noarch.rpm -y
+
+------------------------------------------------------
+
+
+                                            Desktop for Linux: KDE 6 Desktop - Centos 10 - Windows 11
+           .MMM..:MMMMMMM                   
+          MMMMMMMMMMMMMMMMMM                MEDIA MATTIAS VINBERG - STOCKHOLM - SWEDEN - 2026
+          MMMMMMMMMMMMMMMMMMMM.             
+         MMMMMMMMMMMMMMMMMMMMMM             OS: Windows 11 Pro for Workstations (26H2) x86_64
+        ,MMMMMMMMMMMMMMMMMMMMMM:            
+        MMMMMMMMMMMMMMMMMMMMMMMM            OS: CentOS Stream 10 (Coughlan) x86_64
+  .MMMM'  MMMMMMMMMMMMMMMMMMMMMM            
+ MMMMMM    `MMMMMMMMMMMMMMMMMMMM.           Host: Windows Subsystem for Linux - CentOSStream-10-Alt (2.9.13.0)
+MMMMMMMM      MMMMMMMMMMMMMMMMMM .          
+MMMMMMMMM.       `MMMMMMMMMMMMM' MM.        Kernel: Linux 6.18.40.1-microsoft-standard-WSL2
+MMMMMMMMMMM.                     MMMM       
+`MMMMMMMMMMMMM.                 ,MMMMM.     Mail: mattiasvinberg@duck.com
+ `MMMMMMMMMMMMMMMMM.          ,MMMMMMMM.    
+    MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM    Download Centos here: https://github.com/vinberg88/centos
+      MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM:    
+         MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM     More desktops for WSL. https://github.com/vinberg88
+            `MMMMMMMMMMMMMMMMMMMMMMMM:      
+                ``MMMMMMMMMMMMMMMMM'        Old page WSL: https://github.com/vinberg88/opensuse       
+
+
+------------------------------------------------------
+
+Install BLANKET for CENTOS 10 STREAM via flatpak
+
+Copy and paste: sudo dnf install flatpak* -y --skip-broken --nobest
+
+Copy and paste: sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+Copy and paste: sudo flatpak install flathub com.rafaelmardojai.Blanket
+
+------------------------------------------------------
+
+Now lets install Spotify From Sweden - CENTOS 10 STREAM Coughlan - 2026
+
+sudo dnf config-manager --add-repo=https://negativo17.org/repos/epel-spotify.repo
+
+sudo dnf -y install spotify-client
+
+------------------------------------------------------
+
+Gimp for CENTOS 10 STREAM Coughlan - ITS A MUST TO HAVE GIMP FOR CENTOS 10
+
+sudo dnf copr enable jridky/gimp10 rhel-10-x86_64 -y
+sudo dnf install gimp -y
+
+------------------------------------------------------
+
+Install LibreOffice via rpm package for CENTOS 10
+
+wget https://mirror.accum.se/mirror/documentfoundation.org/libreoffice/stable/26.2.6/rpm/x86_64/LibreOffice_26.2.6_Linux_x86-64_rpm.tar.gz
+
+tar -xzvf LibreOffice_26.2.6_Linux_x86-64_rpm.tar.gz
+cd LibreOffice_26.2.6.3_Linux_x86-64_rpm
+cd RPMS
+sudo dnf install -y *.rpm
+cd
+
+------------------------------------------------------
+
+                 ..                     Centos 10 Stream and KDE 6
+               .PLTJ.                   
+              <><><><>                  OS: Windows 11 Pro for Workstations (26H2) x86_64
+     KKSSV' 4KKK LJ KKKL.'VSSKK 
+     KKV' 4KKKKK LJ KKKKAL 'VKK         OS: CentOS Stream 10 (Coughlan) x86_64
+     V' ' 'VKKKK LJ KKKKV' ' 'V         
+     .4MA.' 'VKK LJ KKV' '.4Mb.         Host: Windows Subsystem for Linux - CentOSStream-10-Alt (2.9.13.0)
+   . KKKKKA.' 'V LJ V' '.4KKKKK .       
+ .4D KKKKKKKA.'' LJ ''.4KKKKKKK FA.     Kernel: Linux 6.18.40.1-microsoft-standard-WSL2
+<QDD ++++++++++++  ++++++++++++ GFD>    
+ 'VD KKKKKKKK'.. LJ ..'KKKKKKKK FV      MEDIA: MATTIAS VINBERG - SWEDEN - STOCKHOLM - 2026
+   ' VKKKKK'. .4 LJ K. .'KKKKKV '       
+      'VK'. .4KK LJ KKA. .'KV'          Desktop for Linux: KDE 6 Desktop - Centos 10 - Windows 11
+     A. . .4KKKK LJ KKKKA. . .4         
+     KKA. 'KKKKK LJ KKKKK' .4KK         Mail: mattiasvinberg@duck.com
+     KKSSA. VKKK LJ KKKV .4SSKK         
+              <><><><>                  Download Centos here: https://github.com/vinberg88/centos
+               'MKKM'   
+                 ''                     More desktops for WSL. https://github.com/vinberg88
+
+------------------------------------------------------
+
+Copy and Paste in terminal for CENTOS 10 STREAM Coughlan - KDE 6 - 2026
+
+xdg-user-dirs-update
+sudo systemctl set-default graphical.target
+sudo ln -fs /usr/lib/systemd/system/graphical.target /etc/systemd/system/default.target
+
+-----------------------------------
+
+CENTOS 10 STREAM Coughlan. Setup loginctl for WSL2 - 2026
+
+Type this in terminal and put your user-name there: sudo loginctl enable-linger adolf
+
+-------------------------------------------------------------
+
+INSTALL SOME MORE PROGRAMS FOR CENTOS Coughlan 10 STREAM - 2026
+
+After that INSTALL this: sudo dnf install glib* dbus* ibus xhost wayland* dconf-editor curl wget git bash* zeal* librepo* -y
+
+------------------------------------------------------
+
+COPY AND PASTE FOR Centos 10 and KDE 6 - 2026 - WSL - LinuX - Windows 11 - Sweden - 2026
+
+BEST ICONS FOR KDE FOR FREE =] Tokyonight-Dark i will send some Money.
+
+wget https://www.braknulla.se/Tokyonight-Dark-Icons.zip
+sudo mkdir -p ~/.local/share/Icons
+sudo unzip Tokyonight-Dark-Icons.zip -d ~/.local/share/icons/
+
+Works Perfect for Redhat and KDE / GNOME - 2026 - ✔
+
+------------------------------------------------------
+
+Install this for KDE 6 AND CENTOS 10 STREAM - fix so startplasma-x11 work.
+
+sudo dnf -y install rpm-build rpmdevtools
+
+sudo grep -R --line-number -E '^\s*%dist' ~/.rpmmacros /etc/rpm/macros* 2>/dev/null || true
+
+wget https://www.swehub.com/rocky/plasma-wsl-starter-1.3.0-1.el10.noarch.rpm
+
+sudo dnf -y install ./plasma-wsl-starter-1.3.0-1.el10.noarch.rpm
+
+------------------------------------------------------
+
+Centos 10 -  Restart LINUX - Restart Centos 10 - Restart LINUX - Restart Centos Stream 🔟 
+
+------------------------------------------------------
+
+Time to start KDE Desktop via CENTOS 10 STREAM and WSL2 - 2026
+
+
+NOTE - FIRST START X410 THEN YOU START CENTOS 10 STREAM VIA POWERSHELL AND INSTALL SCRIPT.
+
+
+Read here to make Centos 10 start - EASY - https://github.com/vinberg88/centos/blob/main/kde6-wayland/INSTALL.md
+
+Download all via Powershell and install Start Script for Centos 10 and KDE 6 =)
+
+cd "$HOME\Downloads"
+
+git clone https://github.com/vinberg88/centos.git
+
+cd "$HOME\Downloads\centos\kde6-wayland"
+
+.\Install-CentOS10-KDE6.cmd
+
+The installer creates a shortcut named CentOS 10 KDE 6 on the Windows desktop - Click on that so will
+Centos 10 and KDE 6 start....
+
+For the easiest installation, open the kde6-wayland directory and double-click
+Install-CentOS10-KDE6.cmd. It creates a CentOS 10 KDE 6 shortcut on the Windows
+desktop for one-click startup. See the complete installation guide for details.
+
+NOTE - YOU MUST HAVE X410 RUNNING =)
+
+Regards,
+Mattias Vinberg
+
+It takes a little time to start at the beginning so leave it for a minute if nothing happens - CENTOS 10 STREAM
+
+-----------------------------------
+
+Regards Mattias Vinberg - CentOS Stream 10 - KDE - x410 - Linux - Microsoft - Windows 11 - Sweden - CentOS - 2026
+
+                 ..                     Centos 10 Stream and KDE 6
+               .PLTJ.                   
+              <><><><>                  OS: Windows 11 Pro for Workstations (26H2) x86_64
+     KKSSV' 4KKK LJ KKKL.'VSSKK 
+     KKV' 4KKKKK LJ KKKKAL 'VKK         OS: CentOS Stream 10 (Coughlan) x86_64
+     V' ' 'VKKKK LJ KKKKV' ' 'V         
+     .4MA.' 'VKK LJ KKV' '.4Mb.         Host: Windows Subsystem for Linux - CentOSStream-10-Alt (2.9.13.0)
+   . KKKKKA.' 'V LJ V' '.4KKKKK .       
+ .4D KKKKKKKA.'' LJ ''.4KKKKKKK FA.     Kernel: Linux 6.18.40.1-microsoft-standard-WSL2
+<QDD ++++++++++++  ++++++++++++ GFD>    
+ 'VD KKKKKKKK'.. LJ ..'KKKKKKKK FV      MEDIA: MATTIAS VINBERG - SWEDEN - STOCKHOLM - 2026
+   ' VKKKKK'. .4 LJ K. .'KKKKKV '       
+      'VK'. .4KK LJ KKA. .'KV'          Desktop for Linux: KDE 6 Desktop - Centos 10 - Windows 11
+     A. . .4KKKK LJ KKKKA. . .4         
+     KKA. 'KKKKK LJ KKKKK' .4KK         Mail: mattiasvinberg@duck.com
+     KKSSA. VKKK LJ KKKV .4SSKK         
+              <><><><>                  Download Centos here: https://github.com/vinberg88/centos
+               'MKKM'   
+                 ''                     More desktops for WSL. https://github.com/vinberg88
+
+❤ Thank you for being a part of the CentOS Stream 10 (Coughlan) and MATE desktop for WSL2 ❤
+
+CentOS Stream 10 (Coughlan) is an Enterprise Linux distro, binary compatible with RHEL®, and guided and built by the Community - 2026
+                                        
+------------------------------------------------------
