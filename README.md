@@ -10,7 +10,9 @@ How to start KDE 6 via CENTOS 10 Stream: https://github.com/vinberg88/centos/tre
 <img width="582" height="214" alt="centos" src="https://github.com/user-attachments/assets/a83fda61-b4b9-4ce8-bce6-3c70517e54af" />
 </p>
 
-# Comming - how to install KDE 6 via Centos 10 - WSL
+# How to install KDE 6 via Centos 10 - WSL - [`READ HERE`](Centos10-stream-KDE6.txt)
+
+How to install KDE 6 via Centos - WSL - https://github.com/vinberg88/centos/blob/main/Centos10-stream-KDE6.txt
 
 <p align="center">
 <a href="https://github.com/vinberg88">
