@@ -3,16 +3,16 @@
 
 NOTE - you first need to install KDE via WSL - Centos 10 Stream
 
-How to start KDE 6 via CENTOS 10 Stream: https://github.com/vinberg88/centos/tree/main/kde6-wayland
+How to start KDE 6 via CENTOS 10 Stream for WSL: [`READ HERE`](https://github.com/vinberg88/centos/tree/main/kde6-wayland)
 
 <p align="center">
 <a href="https://github.com/vinberg88/centos/releases">
 <img width="582" height="214" alt="centos" src="https://github.com/user-attachments/assets/a83fda61-b4b9-4ce8-bce6-3c70517e54af" />
 </p>
 
-# How to install KDE 6 via Centos 10 - WSL - [`READ HERE`](Centos10-stream-KDE6.txt)
+# Centos 10 via KDE 6 - WSL - Windows 11
 
-How to install KDE 6 via Centos - WSL - https://github.com/vinberg88/centos/blob/main/Centos10-stream-KDE6.txt
+How to install KDE 6 via Centos for WSL - [`READ HERE`](Centos10-stream-KDE6.txt)
 
 <p align="center">
 <a href="https://github.com/vinberg88">
