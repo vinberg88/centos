@@ -16,3 +16,11 @@ CentOS Special Interest Groups
 The CentOS Board
 
 The CentOS Governing Board is made up of members of the CentOS Project, some whom have been around since the creation of the Project, as well as new members from the community and Red Hat. The focus of the Governing Board is to curate the CentOS Project, assist and guide in the progress and development of the various SIGs, as well as to promote CentOS Stream. For more information read the governance page.
+
+## KDE Plasma 6 Wayland on WSL 2
+
+The [`kde6-wayland`](kde6-wayland/) launcher starts Plasma Shell in X410 while
+KDE applications use WSLg/Wayland and Windows manages the application
+windows. It provides `start`, `stop`, `restart`, `status`, `doctor`, and `log`
+commands and avoids the SDDM and nested-KWin restart loops that can make
+repeated `startplasma` attempts unreliable.
