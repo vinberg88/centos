@@ -40,13 +40,13 @@ and with the safety, privacy-protection and peace of mind
 that the best Free Open Source Software has to offer. KDE
 Plasma is a Desktop for next life =)
 
-
-
 ---
+More desktop via WSL and Centos 10 will come for microsoft later. KDE, Gnome, Xfce and Mate desktop.
 
----
-
-
+<p align="center">
+<a href="https://github.com/vinberg88">
+<img width="600" height="160" alt="wsl" src="https://github.com/user-attachments/assets/328d694a-8b7c-4546-9e69-e060c130303b" />
+</p>
 
 ---
 
