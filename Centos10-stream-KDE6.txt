@@ -1,7 +1,7 @@
 Centos 10 and KDE 6 - Install KDE 6 via Centos 10 Stream - WSL2 - X410 - Windows 11 - Linux - 2026
 
 How to install KDE 6 via CentOS Stream 10 - TEXT Via GitHUB.
-Comming Zone….
+https://github.com/vinberg88/centos/blob/main/Centos10-stream-KDE6.txt
 
 How to install KDE 6 via CentOS Stream 10 - MOVIE Via YouTUBE.
 Comming Zone….    
