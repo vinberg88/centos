@@ -17,11 +17,11 @@ The CentOS Board
 
 The CentOS Governing Board is made up of members of the CentOS Project, some whom have been around since the creation of the Project, as well as new members from the community and Red Hat. The focus of the Governing Board is to curate the CentOS Project, assist and guide in the progress and development of the various SIGs, as well as to promote CentOS Stream. For more information read the governance page.
 
-## KDE Plasma 6 Wayland on WSL 2
+## KDE Plasma 6 on WSL 2 with X410
 
-The [`kde6-wayland`](kde6-wayland/) launcher starts Plasma Shell in X410
-Windowed Apps mode while KDE applications use WSLg/Wayland. X410 manages X11
-windows and Windows DWM/WSLg manages Wayland windows. It provides `start`,
-`stop`, `restart`, `status`, `doctor`, and `log` commands and avoids the SDDM
-and nested-KWin restart loops that can make repeated `startplasma` attempts
-unreliable.
+The [`kde6-wayland`](kde6-wayland/) launcher now provides two X410/X11 modes:
+Full Desktop with Plasma wallpaper inside X410 Floating Desktop, and Seamless
+with the KDE panel and applications over the Windows desktop. WSLg supplies
+audio. The launcher provides `start`, `stop`, `restart`, `status`, `doctor`,
+and `log`, and avoids the SDDM and nested-KWin restart loops that made repeated
+`startplasma` attempts unreliable.

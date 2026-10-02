@@ -2,6 +2,8 @@
 param(
     [ValidateSet('start', 'stop', 'restart', 'status', 'doctor', 'log')]
     [string]$Command = 'start',
+    [ValidateSet('Desktop', 'Seamless')]
+    [string]$Mode = 'Desktop',
     [string]$Distro = 'CentOSStream-10-Alt'
 )
 
@@ -39,10 +41,12 @@ if ($Command -in @('start', 'restart')) {
         throw 'X410 hittades inte. Installera eller starta X410 och kör skriptet igen.'
     }
 
-    # /wm makes X410 the window manager for the X11 Plasma shell. X410
-    # restarts itself automatically if it was running in another server mode.
-    Write-Host '[INFO] Säkerställer X410 Windowed Apps-läge ...' -ForegroundColor Cyan
-    Start-Process -FilePath $x410Path -ArgumentList '/wm' -WindowStyle Hidden
+    $x410Mode = if ($Mode -eq 'Desktop') { '/desktop' } else { '/wm' }
+    $modeLabel = if ($Mode -eq 'Desktop') { 'Floating Desktop' } else { 'Windowed Apps' }
+
+    # X410 restarts itself automatically when changing server mode.
+    Write-Host "[INFO] Säkerställer X410 $modeLabel-läge ..." -ForegroundColor Cyan
+    Start-Process -FilePath $x410Path -ArgumentList $x410Mode -WindowStyle Hidden
     Start-Sleep -Seconds 3
 
     if (-not (Get-KeepaliveProcess)) {
@@ -55,7 +59,7 @@ if ($Command -in @('start', 'restart')) {
     }
 }
 
-$linuxCommand = '"$HOME/bin/centos10-kde6" ' + $Command
+$linuxCommand = '"$HOME/bin/centos10-kde6" ' + $Command + ' ' + $Mode.ToLowerInvariant()
 & wsl.exe -d $Distro -- bash -lc $linuxCommand
 if ($LASTEXITCODE -ne 0) {
     throw "centos10-kde6 avslutades med kod $LASTEXITCODE."

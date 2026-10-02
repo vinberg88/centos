@@ -1,32 +1,48 @@
-# CentOS Stream 10 + KDE Plasma 6 + X410/WSLg
+# CentOS Stream 10 + KDE Plasma 6 + X410
 
-This launcher reproduces the combination that was verified on the tested
-CentOS Stream 10 installation:
+Version 0.2 provides two tested X410 modes. Both run Plasma and KDE programs
+through X11/xcb. WSLg supplies PulseAudio and remains available for separately
+launched Wayland applications.
+
+## Full Desktop mode (default)
 
 ```text
-Plasma Shell and panel           ->  X410 (xcb/X11)
-KDE applications and windows     ->  WSLg (Wayland wayland-0)
-X11 window management            ->  X410 Windowed Apps
-Wayland window management        ->  Windows DWM / WSLg
+Plasma desktop, wallpaper, and panel  -> X410 Floating Desktop (/desktop)
+KDE applications                     -> X410/X11
+Window management                    -> IceWM, with its taskbar hidden
+Audio                                -> WSLg PulseAudio
 ```
 
-KDE applications therefore report `Graphics Platform: Wayland` while the
-Plasma panel and desktop are presented through X410.
+IceWM only supplies movement, resizing, and decorations inside the X410
+desktop. Plasma still owns the wallpaper, desktop widgets, application menu,
+and panel. This mode does not replace the Windows desktop; X410 presents the
+complete KDE desktop in its own resizable or maximized window.
 
-The launcher deliberately does not start an extra nested KWin compositor.
-KWin 6.7.5 enters a restart loop in this environment: the WSLg backend lacks
-a Wayland protocol required by nested KWin, while the nested X410 backend
-cannot obtain a compatible compositor. Repeated `startplasma` attempts also
-leave partially started systemd user units behind.
+## Seamless mode
+
+```text
+Plasma panel and KDE applications -> X410 Windowed Apps (/wm)
+Window management                 -> X410 / Windows
+Background and desktop icons      -> Windows
+Audio                             -> WSLg PulseAudio
+```
+
+Enable `Re-parenting window manager` in X410 Settings for movable and
+resizable windows in Seamless mode.
+
+The launcher deliberately does not start KWin Wayland. KWin 6.7.5 enters a
+restart loop in this environment, and CentOS Stream 10's current `kwin_x11`
+package conflicts with the installed Plasma 6.7.5 packages. Repeated
+`startplasma` attempts can also leave partially started systemd user units
+behind.
 
 ## Requirements
 
 - CentOS Stream 10 under WSL 2.
 - KDE Plasma 6 with `plasmashell` installed.
 - `systemd=true` below `[boot]` in `/etc/wsl.conf`.
-- X410 3.8 or newer in Windowed Apps mode with WSL 2 access enabled.
-- `Re-parenting window manager` enabled in X410 Settings. This supplies the
-  title-bar frame used for moving and resizing X11 windows.
+- X410 with WSL 2 access enabled.
+- EPEL enabled so the installer can install the small `icewm` dependency.
 
 ## Install
 
@@ -38,42 +54,52 @@ chmod +x install.sh
 ./install.sh
 ```
 
-## Use
+The installer installs IceWM when needed and copies the launcher to
+`~/bin/centos10-kde6`. It also moves the mouse and touchpad System Settings
+plugins to a reversible backup directory. CentOS Plasma 6.7.5 builds those
+two modules without an X11 backend; loading them under X410 otherwise crashes
+the complete System Settings application. WSL has no Linux touchpad to
+configure, and all other settings modules remain available.
+
+Restore the two modules when needed:
 
 ```bash
-centos10-kde6 doctor
-centos10-kde6 start
+sudo mv /usr/lib64/qt6/plugins/plasma/kcms/disabled-centos10-kde6/*.so \
+  /usr/lib64/qt6/plugins/plasma/kcms/systemsettings/
+```
+
+## Use from Windows
+
+Full Desktop with KDE wallpaper is the default:
+
+```powershell
+.\Start-CentOS10-KDE6.ps1 -Command start -Mode Desktop
+```
+
+Switch to KDE windows over the Windows desktop:
+
+```powershell
+.\Start-CentOS10-KDE6.ps1 -Command restart -Mode Seamless
+```
+
+The PowerShell launcher selects the matching X410 server mode and keeps one
+hidden WSL process attached so the distribution does not stop when PowerShell
+exits. The default distribution is `CentOSStream-10-Alt`; override it with
+`-Distro MyCentOS`.
+
+## Use inside WSL
+
+```bash
+centos10-kde6 doctor desktop
+centos10-kde6 start desktop
+centos10-kde6 restart seamless
 centos10-kde6 status
-centos10-kde6 restart
 centos10-kde6 stop
 centos10-kde6 log
 ```
 
-One `centos10-kde6 start` is enough. The launcher:
-
-- disables SDDM so it cannot race the manual WSL session;
-- repairs a root-owned `~/.local` directory when necessary;
-- clears interrupted Plasma/KWin attempts;
-- starts the required Plasma support services on the existing systemd user bus;
-- starts only Plasma Shell in X410 and waits until it remains stable.
-
-Do not run `startplasma` repeatedly in parallel with this launcher.
-
-From Windows, `Start-CentOS10-KDE6.ps1` starts X410 in Windowed Apps mode
-(`/wm`) and invokes the installed launcher. It also keeps one hidden WSL
-process attached so WSL does not terminate the distribution after PowerShell
-exits. `-Command stop` stops both Plasma and that keepalive process. The
-default distribution is `CentOSStream-10-Alt`.
-
-```powershell
-.\Start-CentOS10-KDE6.ps1 -Command start
-```
-
-Override the distribution name when required:
-
-```powershell
-.\Start-CentOS10-KDE6.ps1 -Command start -Distro MyCentOS
-```
+One start command is enough. Do not run `startplasma` in parallel with this
+launcher.
 
 Restore SDDM later, if needed:
 
@@ -81,15 +107,5 @@ Restore SDDM later, if needed:
 sudo systemctl enable --now sddm.service
 ```
 
-## Windows cannot be moved or resized
-
-X410 is the X11 window manager in this seamless setup. Open X410 Settings and
-make sure these options are selected:
-
-1. Server mode: **Windowed Apps**.
-2. **Re-parenting window manager**: enabled.
-
-Then exit X410 and run the PowerShell launcher again. Do not start IceWM,
-Openbox, or `kwin_x11` in Windowed Apps mode; X410 already owns the X11 window
-manager role. See the official X410 documentation for its
-[Windowed Apps re-parenting support](https://x410.dev/news/x410-version-3-8-0-brings-a-re-parenting-window-manager-to-windows/).
+See X410's documentation for the difference between
+[Windowed Apps and Floating Desktop](https://x410.dev/cookbook/).

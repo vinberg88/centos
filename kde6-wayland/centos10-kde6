@@ -2,11 +2,23 @@
 
 set -u
 
-VERSION="0.1.1"
+VERSION="0.2.0"
 UNIT="centos10-kde6-shell.service"
+WM_UNIT="centos10-kde6-wm.service"
 STATE_DIR="${CENTOS10_KDE6_STATE_DIR:-$HOME/.centos10-kde6}"
 LOG_FILE="$STATE_DIR/session.log"
+MODE_FILE="$STATE_DIR/mode"
+ICEWM_CONFIG_DIR="$STATE_DIR/icewm"
 OLD_KWIN_DROPIN="$HOME/.config/systemd/user/plasma-kwin_wayland.service.d/centos10-kde6.conf"
+
+COMMAND="${1:-start}"
+MODE="${CENTOS10_KDE6_MODE:-${2:-desktop}}"
+MODE="${MODE,,}"
+
+case "$MODE" in
+    desktop|seamless) ;;
+    *) printf '[ERROR] Okänt läge: %s (välj desktop eller seamless)\n' "$MODE" >&2; exit 2 ;;
+esac
 
 mkdir -p "$STATE_DIR"
 
@@ -40,21 +52,20 @@ setup_environment() {
 
     export DISPLAY="${host}:0.0"
 
-    # Plasma Shell is rendered by X410. Ordinary applications keep using the
-    # WSLg Wayland compositor, which is the stable combination shown by the
-    # working CentOS desktop.
+    # The complete Plasma session is rendered by X410/X11. WSLg remains
+    # available for audio and for separately launched Wayland applications.
     export WAYLAND_DISPLAY=wayland-0
     unset WAYLAND_SOCKET
 
-    export XDG_SESSION_TYPE=wayland
+    export XDG_SESSION_TYPE=x11
     export XDG_CURRENT_DESKTOP=KDE
     export XDG_SESSION_DESKTOP=KDE
     export DESKTOP_SESSION=plasma
     export KDE_FULL_SESSION=true
     export KDE_SESSION_VERSION=6
-    export QT_QPA_PLATFORM='wayland;xcb'
-    export GDK_BACKEND='wayland,x11'
-    export MOZ_ENABLE_WAYLAND=1
+    export QT_QPA_PLATFORM=xcb
+    export GDK_BACKEND=x11
+    export MOZ_ENABLE_WAYLAND=0
     export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 
     if [[ -S "$XDG_RUNTIME_DIR/bus" ]]; then
@@ -80,6 +91,37 @@ x410_reachable() {
 session_running() {
     systemctl --user is-active --quiet "$UNIT" 2>/dev/null &&
         pgrep -u "$(id -u)" -x plasmashell >/dev/null 2>&1
+}
+
+active_mode() {
+    if [[ -r "$MODE_FILE" ]]; then
+        head -n1 "$MODE_FILE"
+    else
+        printf 'okänt\n'
+    fi
+}
+
+session_matches_mode() {
+    [[ "$(active_mode)" == "$MODE" ]] || return 1
+    if [[ "$MODE" == "desktop" ]]; then
+        systemctl --user is-active --quiet "$WM_UNIT" 2>/dev/null &&
+            pgrep -u "$(id -u)" -x icewm >/dev/null 2>&1
+    else
+        return 0
+    fi
+}
+
+write_icewm_config() {
+    mkdir -p "$ICEWM_CONFIG_DIR"
+    printf '%s\n' \
+        'ShowTaskBar=0' \
+        'ShowWindowList=0' \
+        'TaskBarEnableSystemTray=0' \
+        'TaskBarShowStartMenu=0' \
+        'TaskBarShowWindows=0' \
+        'TaskBarShowWorkspaces=0' \
+        'FocusOnClickClient=1' \
+        >"$ICEWM_CONFIG_DIR/preferences"
 }
 
 stop_display_manager() {
@@ -142,9 +184,13 @@ start_session() {
     setup_environment || return 1
 
     if session_running; then
-        ok "Plasma Wayland kör redan."
-        status_session
-        return 0
+        if session_matches_mode; then
+            ok "Plasma kör redan i läget $MODE."
+            status_session
+            return 0
+        fi
+        info "Byter Plasma från $(active_mode) till $MODE ..."
+        stop_session
     fi
 
     local user_systemd
@@ -157,7 +203,7 @@ start_session() {
 
     if ! x410_reachable; then
         err "X410 svarar inte på DISPLAY=$DISPLAY."
-        err "Starta X410 i Desktop-läge och försök igen."
+        err "Starta X410 i rätt läge och försök igen."
         return 1
     fi
 
@@ -165,22 +211,26 @@ start_session() {
     repair_user_data_permissions || return 1
     remove_old_kwin_override || return 1
 
-    for command_name in plasmashell systemd-run; do
+    local required_commands=(plasmashell systemd-run)
+    if [[ "$MODE" == "desktop" ]]; then
+        required_commands+=(icewm)
+    fi
+    for command_name in "${required_commands[@]}"; do
         if ! command -v "$command_name" >/dev/null 2>&1; then
             err "Saknar kommandot: $command_name"
             return 1
         fi
     done
 
-    # Clear interrupted full-session attempts. KWin cannot stay up as a nested
-    # compositor on this WSLg/X410 combination, so Windows/WSLg manages app
-    # windows and X410 hosts the Plasma shell.
+    # Clear interrupted full-session attempts. KWin Wayland cannot stay up as
+    # a nested compositor here. X410 manages seamless windows; IceWM manages
+    # windows inside X410 Floating Desktop without adding its own taskbar.
     systemctl --user stop plasma-workspace-wayland.target plasma-workspace.target \
         graphical-session.target plasma-kwin_wayland.service \
-        plasma-plasmashell.service plasma-ksplash.service "$UNIT" \
+        plasma-plasmashell.service plasma-ksplash.service "$UNIT" "$WM_UNIT" \
         >/dev/null 2>&1 || true
     systemctl --user reset-failed plasma-kwin_wayland.service plasma-plasmashell.service \
-        plasma-ksplash.service "$UNIT" \
+        plasma-ksplash.service "$UNIT" "$WM_UNIT" \
         >/dev/null 2>&1 || true
 
     import_environment
@@ -190,8 +240,10 @@ start_session() {
         printf 'started=%s\n' "$(date --iso-8601=seconds)"
         printf 'DISPLAY=%s\n' "$DISPLAY"
         printf 'WAYLAND_DISPLAY=%s\n' "$WAYLAND_DISPLAY"
+        printf 'mode=%s\n' "$MODE"
         printf 'shell_platform=xcb (X410)\n'
-        printf 'app_platform=wayland (WSLg)\n\n'
+        printf 'app_platform=xcb (X410)\n'
+        printf 'audio=WSLg PulseAudio\n\n'
     } >>"$LOG_FILE"
 
     systemctl --user start \
@@ -201,7 +253,43 @@ start_session() {
         plasma-kded6.service \
         >/dev/null 2>&1 || true
 
-    info "Startar Plasma Shell i X410 och appar på WSLg/Wayland ..."
+    if [[ "$MODE" == "desktop" ]]; then
+        write_icewm_config
+        info "Startar fönsterhantering för X410 Floating Desktop ..."
+        if ! systemd-run --user \
+            --unit="$WM_UNIT" \
+            --collect \
+            --service-type=exec \
+            --setenv="DISPLAY=$DISPLAY" \
+            --setenv="ICEWM_PRIVCFG=$ICEWM_CONFIG_DIR" \
+            --property=KillMode=control-group \
+            --property=TimeoutStopSec=10s \
+            --property="StandardOutput=append:$LOG_FILE" \
+            --property="StandardError=append:$LOG_FILE" \
+            /usr/bin/icewm >/dev/null; then
+            err "Kunde inte starta IceWM för X410 Desktop."
+            return 1
+        fi
+
+        local wm_waited=0
+        while (( wm_waited < 15 )); do
+            if systemctl --user is-active --quiet "$WM_UNIT" 2>/dev/null &&
+               pgrep -u "$(id -u)" -x icewm >/dev/null 2>&1; then
+                break
+            fi
+            sleep 1
+            ((wm_waited++))
+        done
+        if (( wm_waited >= 15 )); then
+            err "Fönsterhanteraren blev inte redo. Kontrollera att X410 kör /desktop."
+            tail -n 80 "$LOG_FILE" >&2 || true
+            return 1
+        fi
+    else
+        systemctl --user stop "$WM_UNIT" >/dev/null 2>&1 || true
+    fi
+
+    info "Startar Plasma Shell och KDE-program i X410/X11 ($MODE) ..."
     if ! systemd-run --user \
         --unit="$UNIT" \
         --collect \
@@ -209,7 +297,7 @@ start_session() {
         --setenv="DISPLAY=$DISPLAY" \
         --setenv="WAYLAND_DISPLAY=$WAYLAND_DISPLAY" \
         --setenv=QT_QPA_PLATFORM=xcb \
-        --setenv=XDG_SESSION_TYPE=wayland \
+        --setenv=XDG_SESSION_TYPE=x11 \
         --property=KillMode=control-group \
         --property=TimeoutStopSec=20s \
         --property="StandardOutput=append:$LOG_FILE" \
@@ -219,13 +307,19 @@ start_session() {
         return 1
     fi
 
+    printf '%s\n' "$MODE" >"$MODE_FILE"
+
     local waited=0
     local stable=0
     while (( waited < 40 )); do
         if session_running; then
             ((stable++))
             if (( stable >= 8 )); then
-                ok "Plasma 6 kör stabilt: skal i X410, appar på Wayland."
+                if [[ "$MODE" == "desktop" ]]; then
+                    ok "Plasma 6 Full Desktop kör stabilt med KDE-bakgrund i X410."
+                else
+                    ok "Plasma 6 Seamless kör stabilt ovanpå Windows-skrivbordet."
+                fi
                 status_session
                 return 0
             fi
@@ -247,16 +341,17 @@ start_session() {
 }
 
 stop_session() {
-    info "Stoppar Plasma Shell ..."
+    info "Stoppar Plasma Shell och fönsterhantering ..."
     systemctl --user stop plasma-workspace-wayland.target plasma-workspace.target \
         graphical-session.target plasma-kwin_wayland.service plasma-plasmashell.service \
-        plasma-ksplash.service "$UNIT" plasma-kded6.service \
+        plasma-ksplash.service "$UNIT" "$WM_UNIT" plasma-kded6.service \
         plasma-kglobalaccel.service plasma-kactivitymanagerd.service \
         >/dev/null 2>&1 || true
 
     local waited=0
     while (( waited < 15 )); do
         if ! pgrep -u "$(id -u)" -x plasmashell >/dev/null 2>&1; then
+            rm -f -- "$MODE_FILE"
             ok "Plasma är stoppat."
             return 0
         fi
@@ -267,11 +362,14 @@ stop_session() {
     warn "Några Plasma-processer svarade inte; avslutar endast sessionsprocesserna."
     pkill -TERM -u "$(id -u)" -x plasmashell 2>/dev/null || true
     pkill -TERM -u "$(id -u)" -x kwin_wayland 2>/dev/null || true
+    pkill -TERM -u "$(id -u)" -x icewm 2>/dev/null || true
     pkill -TERM -u "$(id -u)" -x Xwayland 2>/dev/null || true
     sleep 2
     pkill -KILL -u "$(id -u)" -x plasmashell 2>/dev/null || true
     pkill -KILL -u "$(id -u)" -x kwin_wayland 2>/dev/null || true
+    pkill -KILL -u "$(id -u)" -x icewm 2>/dev/null || true
     pkill -KILL -u "$(id -u)" -x Xwayland 2>/dev/null || true
+    rm -f -- "$MODE_FILE"
     ok "Plasma är stoppat."
 }
 
@@ -280,17 +378,27 @@ status_session() {
 
     local shell="stoppad"
     local shell_pid=""
+    local running_mode
+    running_mode="$(active_mode)"
 
     shell_pid="$(pgrep -u "$(id -u)" -xo plasmashell 2>/dev/null || true)"
     pgrep -u "$(id -u)" -x plasmashell >/dev/null 2>&1 && shell="kör"
 
-    printf '\nCentOS 10 + KDE Plasma 6 / X410 + Wayland\n'
+    printf '\nCentOS 10 + KDE Plasma 6 / X410\n'
     printf '%-22s %s\n' "Distribution:" "$(. /etc/os-release; printf '%s' "$PRETTY_NAME")"
     printf '%-22s %s\n' "Plasma:" "$(plasmashell --version 2>/dev/null | head -n1 || echo okänd)"
     printf '%-22s %s\n' "Plasma Shell:" "$shell${shell_pid:+ (pid $shell_pid)}"
+    printf '%-22s %s\n' "Läge:" "$running_mode"
     printf '%-22s %s\n' "Skal-display:" "${DISPLAY:-okänd} (X410/xcb)"
-    printf '%-22s %s\n' "Program-display:" "${WAYLAND_DISPLAY:-wayland-0} (WSLg/Wayland)"
-    printf '%-22s %s\n' "Fönsterhantering:" "X410 (X11) + Windows DWM / WSLg (Wayland)"
+    printf '%-22s %s\n' "Program-display:" "${DISPLAY:-okänd} (X410/X11)"
+    if [[ "$running_mode" == "desktop" ]]; then
+        printf '%-22s %s\n' "Fönsterhantering:" "IceWM utan panel (inne i X410)"
+        printf '%-22s %s\n' "KDE-bakgrund:" "Plasma Desktop"
+    else
+        printf '%-22s %s\n' "Fönsterhantering:" "X410 Windowed Apps / Windows"
+        printf '%-22s %s\n' "Bakgrund:" "Windows-skrivbordet"
+    fi
+    printf '%-22s %s\n' "Ljud:" "WSLg PulseAudio"
     printf '%-22s %s\n' "KWin:" "avstängd (undviker omstartsloopen)"
     printf '%-22s %s\n' "Logg:" "$LOG_FILE"
     printf '\n'
@@ -299,7 +407,7 @@ status_session() {
 doctor() {
     setup_environment || return 1
 
-    printf '\nCentOS 10 + KDE Plasma 6 / X410 + Wayland - doctor\n'
+    printf '\nCentOS 10 + KDE Plasma 6 / X410 - doctor (%s)\n' "$MODE"
     printf '%-26s %s\n' "WSL:" "$(grep -qi microsoft /proc/version && echo ja || echo nej)"
     printf '%-26s %s\n' "PID 1:" "$(ps -p 1 -o comm=)"
     printf '%-26s %s\n' "Användar-systemd:" "$(systemctl --user is-system-running 2>/dev/null || true)"
@@ -312,11 +420,18 @@ doctor() {
     fi
     printf '%-26s %s\n' "WSLg Wayland-socket:" "$([[ -S "$XDG_RUNTIME_DIR/wayland-0" ]] && echo nåbar || echo SAKNAS)"
     printf '%-26s %s\n' "Plasma Shell-backend:" "xcb via X410"
-    printf '%-26s %s\n' "Program-backend:" "Wayland via WSLg"
-    printf '%-26s %s\n' "X410 serverläge:" "Windowed Apps (/wm)"
-    printf '%-26s %s\n' "X410 dekorationer:" "Re-parenting window manager ska vara aktiverad"
+    printf '%-26s %s\n' "Program-backend:" "xcb via X410"
+    if [[ "$MODE" == "desktop" ]]; then
+        printf '%-26s %s\n' "X410 serverläge:" "Floating Desktop (/desktop)"
+        printf '%-26s %s\n' "Linux-fönsterhanterare:" "IceWM (utan panel)"
+    else
+        printf '%-26s %s\n' "X410 serverläge:" "Windowed Apps (/wm)"
+        printf '%-26s %s\n' "X410 dekorationer:" "Re-parenting window manager ska vara aktiverad"
+    fi
     printf '%-26s %s\n' "$HOME/.local skrivbar:" "$([[ -w "$HOME/.local" ]] && echo ja || echo nej)"
-    for command_name in plasmashell systemd-run; do
+    local doctor_commands=(plasmashell systemd-run)
+    [[ "$MODE" == "desktop" ]] && doctor_commands+=(icewm)
+    for command_name in "${doctor_commands[@]}"; do
         if command -v "$command_name" >/dev/null 2>&1; then
             printf '%-26s %s\n' "$command_name:" "$(command -v "$command_name")"
         else
@@ -339,12 +454,16 @@ usage() {
 centos10-kde6 $VERSION
 
 Användning:
-  centos10-kde6 start
+  centos10-kde6 start [desktop|seamless]
   centos10-kde6 stop
-  centos10-kde6 restart
+  centos10-kde6 restart [desktop|seamless]
   centos10-kde6 status
-  centos10-kde6 doctor
+  centos10-kde6 doctor [desktop|seamless]
   centos10-kde6 log
+
+Lägen:
+  desktop    Full KDE-bakgrund i X410 Floating Desktop (standard)
+  seamless   KDE-panel och fönster ovanpå Windows-skrivbordet
 
 Miljö:
   X410_HOST=<Windows-IP>   överstyr automatisk gateway-detektering
@@ -352,7 +471,7 @@ Miljö:
 EOF
 }
 
-case "${1:-start}" in
+case "$COMMAND" in
     start)   start_session ;;
     stop)    stop_session ;;
     restart) stop_session; start_session ;;
