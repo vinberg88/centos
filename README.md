@@ -37,3 +37,16 @@ For the easiest installation, open the [`kde6-wayland`](kde6-wayland/)
 directory and double-click `Install-CentOS10-KDE6.cmd`. It creates a
 **CentOS 10 KDE 6** shortcut on the Windows desktop for one-click startup.
 See the [complete installation guide](kde6-wayland/INSTALL.md) for details.
+
+---
+
+Install Centos 10 for WSL
+
+Download Centos 10 Stream for WSL https://github.com/vinberg88/centos/releases
+
+<p align="center">
+<a href="https://github.com/vinberg88/centos/releases">
+<img width="1034" height="575" alt="terminal" src="https://github.com/user-attachments/assets/4677057e-81fa-4064-b76e-46ea878541fc" />
+</p>
+
+---
