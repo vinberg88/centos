@@ -46,7 +46,21 @@ behind.
 
 ## Install
 
-Run as the normal user inside the CentOS WSL distribution:
+For the easiest setup, clone or download the repository and double-click this
+file in Windows:
+
+```text
+Install-CentOS10-KDE6.cmd
+```
+
+It detects the CentOS Stream 10 WSL distribution, runs the Linux installer,
+and creates a **CentOS 10 KDE 6** shortcut on the Windows desktop. After that,
+starting the complete desktop is a single double-click.
+
+See [INSTALL.md](INSTALL.md) for the complete step-by-step guide.
+
+For manual installation, run as the normal user inside the CentOS WSL
+distribution:
 
 ```bash
 cd kde6-wayland
@@ -84,8 +98,8 @@ Switch to KDE windows over the Windows desktop:
 
 The PowerShell launcher selects the matching X410 server mode and keeps one
 hidden WSL process attached so the distribution does not stop when PowerShell
-exits. The default distribution is `CentOSStream-10-Alt`; override it with
-`-Distro MyCentOS`.
+exits. It automatically detects a CentOS Stream 10 WSL distribution. If
+needed, select one explicitly with `-Distro MyCentOS`.
 
 ## Use inside WSL
 

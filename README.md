@@ -25,3 +25,8 @@ with the KDE panel and applications over the Windows desktop. WSLg supplies
 audio. The launcher provides `start`, `stop`, `restart`, `status`, `doctor`,
 and `log`, and avoids the SDDM and nested-KWin restart loops that made repeated
 `startplasma` attempts unreliable.
+
+For the easiest installation, open the [`kde6-wayland`](kde6-wayland/)
+directory and double-click `Install-CentOS10-KDE6.cmd`. It creates a
+**CentOS 10 KDE 6** shortcut on the Windows desktop for one-click startup.
+See the [complete installation guide](kde6-wayland/INSTALL.md) for details.

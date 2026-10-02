@@ -4,10 +4,30 @@ param(
     [string]$Command = 'start',
     [ValidateSet('Desktop', 'Seamless')]
     [string]$Mode = 'Desktop',
-    [string]$Distro = 'CentOSStream-10-Alt'
+    [string]$Distro = ''
 )
 
 $ErrorActionPreference = 'Stop'
+
+if ([string]::IsNullOrWhiteSpace($Distro)) {
+    $installedDistros = @(
+        & wsl.exe --list --quiet |
+            ForEach-Object { ($_ -replace "`0", '').Trim() } |
+            Where-Object { $_ }
+    )
+    $Distro = $installedDistros |
+        Where-Object { $_ -eq 'CentOSStream-10-Alt' } |
+        Select-Object -First 1
+    if (-not $Distro) {
+        $Distro = $installedDistros |
+            Where-Object { $_ -match '(?i)centos.*10|10.*centos' } |
+            Select-Object -First 1
+    }
+    if (-not $Distro) {
+        throw 'Ingen CentOS Stream 10-distribution hittades. Ange den med -Distro "DittDistroNamn".'
+    }
+}
+
 $stateDirectory = Join-Path $env:LOCALAPPDATA 'CentOS10-KDE6'
 $keepalivePidFile = Join-Path $stateDirectory 'wsl-keepalive.pid'
 

@@ -1,3 +1,4 @@
 kde6-wayland/centos10-kde6 text eol=lf
 kde6-wayland/*.sh text eol=lf
 kde6-wayland/*.ps1 text eol=crlf
+kde6-wayland/*.cmd text eol=crlf
