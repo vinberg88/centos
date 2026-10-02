@@ -1,18 +1,18 @@
 # centos - Comming to WSL 2026
 
+
+<img width="582" height="214" alt="centos" src="https://github.com/user-attachments/assets/a83fda61-b4b9-4ce8-bce6-3c70517e54af" />
+
+
 The CentOS Project for WSL user - Build desktops from kde to gnome =) 
 
 The CentOS Project is a community-driven free software effort focused around providing a rich base platform for open source communities to build upon. We provide a development framework for cloud providers, the hosting community, scientific data processing, and many more. We work with several upstream communities to help them layer and distribute their software more effectively on a platform they can rely on.
 CentOS Stream
 
-CentOS Stream defines Enterprise Linux.
-
 CentOS Stream is derived from Fedora Linux. It has a new major version release every three years, and each release is maintained for five years, matching the full support phase of RHEL. CentOS Stream development is open to all, but because CentOS Stream only has updates intended for RHEL, it is maintained by the RHEL team. Learn how to contribute.
 
 CentOS Stream can serve as a production operating system, a development environment, or a preview of the next minor RHEL release. It also serves as a foundation for the work from our Special Interest Groups (SIGs).
 CentOS Special Interest Groups
-
-See all Special Interest Groups.
 
 The CentOS Board
 
