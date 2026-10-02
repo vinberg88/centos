@@ -1,2 +1,19 @@
-# centos
-CentOS Stream for WSL -  Build for version 9 and 10 so you can build alot off desktops vis Windows 11 - CentOS Stream is derived from Fedora Linux. It has a new major version release every three years, and each release is maintained for five years, matching the full support phase of RHEL. - CentOS Stream serve well via WSL - 2026 
+# centos - Comming to WSL 2026
+
+The CentOS Project for WSL user - Build desktops from kde to gnome =) 
+
+The CentOS Project is a community-driven free software effort focused around providing a rich base platform for open source communities to build upon. We provide a development framework for cloud providers, the hosting community, scientific data processing, and many more. We work with several upstream communities to help them layer and distribute their software more effectively on a platform they can rely on.
+CentOS Stream
+
+CentOS Stream defines Enterprise Linux.
+
+CentOS Stream is derived from Fedora Linux. It has a new major version release every three years, and each release is maintained for five years, matching the full support phase of RHEL. CentOS Stream development is open to all, but because CentOS Stream only has updates intended for RHEL, it is maintained by the RHEL team. Learn how to contribute.
+
+CentOS Stream can serve as a production operating system, a development environment, or a preview of the next minor RHEL release. It also serves as a foundation for the work from our Special Interest Groups (SIGs).
+CentOS Special Interest Groups
+
+See all Special Interest Groups.
+
+The CentOS Board
+
+The CentOS Governing Board is made up of members of the CentOS Project, some whom have been around since the creation of the Project, as well as new members from the community and Red Hat. The focus of the Governing Board is to curate the CentOS Project, assist and guide in the progress and development of the various SIGs, as well as to promote CentOS Stream. For more information read the governance page.
