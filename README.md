@@ -3,7 +3,7 @@
 <img width="582" height="214" alt="centos" src="https://github.com/user-attachments/assets/a83fda61-b4b9-4ce8-bce6-3c70517e54af" />
 </p>
 
-# Centos - Comming to WSL 2026
+# Centos - Build desktops for WSL 2026
 
 The CentOS Project is a community-driven free software effort focused around providing a rich base platform for open source communities to build upon. We provide a development framework for cloud providers, the hosting community, scientific data processing, and many more. We work with several upstream communities to help them layer and distribute their software more effectively on a platform they can rely on.
 CentOS Stream
