@@ -15,7 +15,8 @@ mkdir -p "$TARGET_DIR"
 install -m 0755 "$SCRIPT_DIR/centos10-kde6" "$TARGET"
 
 printf '\nInstalled: %s\n\n' "$TARGET"
-printf 'Start X410 in Desktop mode, then run:\n'
+printf 'In X410 Settings, enable Windowed Apps and Re-parenting window manager.\n'
+printf 'Then run:\n'
 printf '  centos10-kde6 doctor\n'
 printf '  centos10-kde6 start\n\n'
 printf 'Other commands: stop, restart, status, log\n'

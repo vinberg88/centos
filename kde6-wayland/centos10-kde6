@@ -2,7 +2,7 @@
 
 set -u
 
-VERSION="0.1.0"
+VERSION="0.1.1"
 UNIT="centos10-kde6-shell.service"
 STATE_DIR="${CENTOS10_KDE6_STATE_DIR:-$HOME/.centos10-kde6}"
 LOG_FILE="$STATE_DIR/session.log"
@@ -290,7 +290,7 @@ status_session() {
     printf '%-22s %s\n' "Plasma Shell:" "$shell${shell_pid:+ (pid $shell_pid)}"
     printf '%-22s %s\n' "Skal-display:" "${DISPLAY:-okänd} (X410/xcb)"
     printf '%-22s %s\n' "Program-display:" "${WAYLAND_DISPLAY:-wayland-0} (WSLg/Wayland)"
-    printf '%-22s %s\n' "Fönsterhantering:" "Windows DWM / WSLg"
+    printf '%-22s %s\n' "Fönsterhantering:" "X410 (X11) + Windows DWM / WSLg (Wayland)"
     printf '%-22s %s\n' "KWin:" "avstängd (undviker omstartsloopen)"
     printf '%-22s %s\n' "Logg:" "$LOG_FILE"
     printf '\n'
@@ -313,6 +313,8 @@ doctor() {
     printf '%-26s %s\n' "WSLg Wayland-socket:" "$([[ -S "$XDG_RUNTIME_DIR/wayland-0" ]] && echo nåbar || echo SAKNAS)"
     printf '%-26s %s\n' "Plasma Shell-backend:" "xcb via X410"
     printf '%-26s %s\n' "Program-backend:" "Wayland via WSLg"
+    printf '%-26s %s\n' "X410 serverläge:" "Windowed Apps (/wm)"
+    printf '%-26s %s\n' "X410 dekorationer:" "Re-parenting window manager ska vara aktiverad"
     printf '%-26s %s\n' "$HOME/.local skrivbar:" "$([[ -w "$HOME/.local" ]] && echo ja || echo nej)"
     for command_name in plasmashell systemd-run; do
         if command -v "$command_name" >/dev/null 2>&1; then

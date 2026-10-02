@@ -23,17 +23,27 @@ function Get-KeepaliveProcess {
 }
 
 if ($Command -in @('start', 'restart')) {
-    $x410 = Get-Process -Name 'X410' -ErrorAction SilentlyContinue
-    if (-not $x410) {
-        $x410Command = Get-Command 'x410.exe' -ErrorAction SilentlyContinue
-        if (-not $x410Command) {
-            throw 'X410 hittades inte. Starta X410 i Desktop-läge och kör skriptet igen.'
-        }
-
-        Write-Host '[INFO] Startar X410 i Desktop-läge ...' -ForegroundColor Cyan
-        Start-Process -FilePath $x410Command.Source -ArgumentList '/desktop' -WindowStyle Hidden
-        Start-Sleep -Seconds 3
+    $x410 = @(Get-Process -Name 'X410' -ErrorAction SilentlyContinue)
+    $x410Command = Get-Command 'x410.exe' -ErrorAction SilentlyContinue
+    $x410Path = if ($x410Command) {
+        $x410Command.Source
     }
+    elseif ($x410.Count -gt 0 -and $x410[0].Path) {
+        $x410[0].Path
+    }
+    else {
+        $null
+    }
+
+    if (-not $x410Path) {
+        throw 'X410 hittades inte. Installera eller starta X410 och kör skriptet igen.'
+    }
+
+    # /wm makes X410 the window manager for the X11 Plasma shell. X410
+    # restarts itself automatically if it was running in another server mode.
+    Write-Host '[INFO] Säkerställer X410 Windowed Apps-läge ...' -ForegroundColor Cyan
+    Start-Process -FilePath $x410Path -ArgumentList '/wm' -WindowStyle Hidden
+    Start-Sleep -Seconds 3
 
     if (-not (Get-KeepaliveProcess)) {
         New-Item -ItemType Directory -Force -Path $stateDirectory | Out-Null
