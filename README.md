@@ -10,8 +10,6 @@ How to install KDE 6 via Centos for WSL - Text via GitHUB [`READ HERE`](Centos10
 
 How to install KDE 6 via Centos for WSL - YouTUBE - [`READ HERE`](https://www.youtube.com/@mattiasvinberg) - Comming SONE
 
-NOTE - you first need to install KDE via WSL - Centos 10 Stream.
-
 How to start KDE 6 via CENTOS 10 Stream for WSL: [`READ HERE`](https://github.com/vinberg88/centos/tree/main/kde6-wayland)
 
 <p align="center">
