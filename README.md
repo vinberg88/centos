@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://www.centos.org/altimages/">
+<a href="https://github.com/vinberg88/centos/releases">
 <img width="582" height="214" alt="centos" src="https://github.com/user-attachments/assets/a83fda61-b4b9-4ce8-bce6-3c70517e54af" />
 </p>
 
