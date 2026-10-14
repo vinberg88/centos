@@ -1,4 +1,4 @@
-Centos 10 and KDE 6 - Install KDE 6 via Centos 10 Stream - WSL2 - X410 - Windows 11 - Linux - 2026
+Centos 10 and KDE 6 - Install KDE via Centos 10 - WSL2 - X410 - Windows 11 - Linux - YouTUBE - 2026
 
 How to install KDE 6 via CentOS Stream 10 - TEXT Via GitHUB.
 https://github.com/vinberg88/centos/blob/main/Centos10-stream-KDE6.txt
@@ -8,9 +8,9 @@ Comming Zone….
 
 Download Centos 10 STREAM here: https://github.com/vinberg88/centos/releases
 
-Start Script for KDE 6 and CENTOS 10 STREAM: https://github.com/vinberg88/centos/blob/main/kde6-wayland/INSTALL.md
-
 After download CENTOS 10 STREAM - Press the blue Icon and you will setup user and CENTOS 10 STREAM for WSL2.
+
+Start Script for KDE 6 and CENTOS 10 STREAM: https://github.com/vinberg88/centos/blob/main/kde6-wayland/INSTALL.md
 
 TOOLS THAT I USE FOR WSL and WINDOWS 11 - KDE Desktop - x410 - WSL UI - Centos 10 - 2026
 
@@ -94,9 +94,11 @@ a dual-boot configuration.
 
 ------------------------------------------------------
 
-TIME TO START INSTALL OF MATE DESKTOP AND CENTOS 10 STREAM VIA WINDOWS 11 - WSL2 - Coughlan - 2026
+TIME TO START INSTALL OF KDE DESKTOP AND CENTOS 10 STREAM VIA WINDOWS 11 - WSL2 - Coughlan - 2026
 
 Download Centos 10 STREAM here: https://github.com/vinberg88/centos/releases
+
+After download press Blue Icon and you will setup user and CENTOS 10 STREAM for WSL2.
 
 ------------------------------------------------------
 
