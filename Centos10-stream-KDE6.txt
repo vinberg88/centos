@@ -106,7 +106,7 @@ First thing after CENTOS 10 is installd - Set Password for root and user - Use s
 
 Type this in console: cd
 
-Next copy and paste this to terminal.
+Next copy and paste this to terminal. Change adolf to your username.
 
 sudo passwd adolf
 sudo passwd root
